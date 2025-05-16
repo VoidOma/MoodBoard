@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MoodBoardApp: App {
+    @StateObject private var vm = MoodViewModel()
+
     var body: some Scene {
         WindowGroup {
-            //ContentView()
+            TodayView(vm: vm)
         }
     }
 }
