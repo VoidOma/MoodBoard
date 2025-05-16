@@ -76,7 +76,7 @@ struct TodayView: View {
             }
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $image)
+//            ImagePicker(selectedImage: $image)
         }
     }
 
