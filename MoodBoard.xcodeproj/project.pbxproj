@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291D079D2DD76A8B00E72AFE /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 291D079A2DD76A8A00E72AFE /* Models */; };
+		291D079E2DD76A8B00E72AFE /* ViewModels in Resources */ = {isa = PBXBuildFile; fileRef = 291D079B2DD76A8A00E72AFE /* ViewModels */; };
+		291D079F2DD76A8B00E72AFE /* Views in Resources */ = {isa = PBXBuildFile; fileRef = 291D079C2DD76A8B00E72AFE /* Views */; };
 		298E14572DD766D5006E9F53 /* MoodBoardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14562DD766D5006E9F53 /* MoodBoardApp.swift */; };
-		298E14592DD766D5006E9F53 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14582DD766D5006E9F53 /* ContentView.swift */; };
 		298E145B2DD766D6006E9F53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298E145A2DD766D6006E9F53 /* Assets.xcassets */; };
 		298E145E2DD766D6006E9F53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298E145D2DD766D6006E9F53 /* Preview Assets.xcassets */; };
 		298E14682DD766D7006E9F53 /* MoodBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14672DD766D7006E9F53 /* MoodBoardTests.swift */; };
@@ -34,9 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291D079A2DD76A8A00E72AFE /* Models */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Models; path = MoodBoard/Models; sourceTree = SOURCE_ROOT; };
+		291D079B2DD76A8A00E72AFE /* ViewModels */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ViewModels; path = MoodBoard/ViewModels; sourceTree = SOURCE_ROOT; };
+		291D079C2DD76A8B00E72AFE /* Views */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Views; path = MoodBoard/Views; sourceTree = SOURCE_ROOT; };
 		298E14532DD766D5006E9F53 /* MoodBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298E14562DD766D5006E9F53 /* MoodBoardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBoardApp.swift; sourceTree = "<group>"; };
-		298E14582DD766D5006E9F53 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		298E145A2DD766D6006E9F53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		298E145D2DD766D6006E9F53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		298E14632DD766D6006E9F53 /* MoodBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,8 +98,10 @@
 		298E14552DD766D5006E9F53 /* MoodBoard */ = {
 			isa = PBXGroup;
 			children = (
+				291D079A2DD76A8A00E72AFE /* Models */,
+				291D079B2DD76A8A00E72AFE /* ViewModels */,
+				291D079C2DD76A8B00E72AFE /* Views */,
 				298E14562DD766D5006E9F53 /* MoodBoardApp.swift */,
-				298E14582DD766D5006E9F53 /* ContentView.swift */,
 				298E145A2DD766D6006E9F53 /* Assets.xcassets */,
 				298E145C2DD766D6006E9F53 /* Preview Content */,
 			);
@@ -231,8 +237,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291D079D2DD76A8B00E72AFE /* Models in Resources */,
+				291D079E2DD76A8B00E72AFE /* ViewModels in Resources */,
 				298E145E2DD766D6006E9F53 /* Preview Assets.xcassets in Resources */,
 				298E145B2DD766D6006E9F53 /* Assets.xcassets in Resources */,
+				291D079F2DD76A8B00E72AFE /* Views in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +266,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				298E14592DD766D5006E9F53 /* ContentView.swift in Sources */,
 				298E14572DD766D5006E9F53 /* MoodBoardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,7 @@ import SwiftUI
 struct MoodBoardApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
         }
     }
 }
