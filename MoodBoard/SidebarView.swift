@@ -20,8 +20,8 @@ struct SidebarView: View {
 
             ScrollView {
                 ForEach(vm.entries) { entry in
-                    let isToday = Calendar.current.isDateInToday(entry.date)
-                    let dateText = isToday ? "Aujourd’hui" : formatDate(entry.date)
+                    //let _isToday = Calendar.current.isDateInToday(entry.date)
+                    //let _dateText = isToday ? "Aujourd’hui" : formatDate(entry.date)
 
                     HStack {
                         Text("(entry.emoji)  (dateText)")

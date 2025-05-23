@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+struct EmojiPicker: View {
+    @Binding var selectedEmoji: String
+    let emojis = ["😀", "😌", "😢", "😠", "😴", "😎", "🤯", "🥳", "😕", "😍"]
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                ForEach(emojis, id: \.self) { emoji in
+                    Text(emoji)
+                        .font(.system(size: 40))
+                        .padding(10)
+                        .background(selectedEmoji == emoji ? Color.blue.opacity(0.2) : Color.clear)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            selectedEmoji = emoji
+                        }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
 struct TodayView: View {
     @ObservedObject var vm: MoodViewModel
     @State private var image: UIImage?
@@ -44,10 +67,11 @@ struct TodayView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal)
 
-                    TextField("Ton emoji du jour", text: $emoji)
-                        .frame(width: 120)
-                        .multilineTextAlignment(.center)
-                        .font(.largeTitle)
+                    Text("Ton humeur du jour")
+                        .font(.headline)
+
+                    EmojiPicker(selectedEmoji: $emoji)
+
 
                     Button("Enregistrer") {
                         if let image = image {
@@ -76,7 +100,7 @@ struct TodayView: View {
             }
         }
         .sheet(isPresented: $showImagePicker) {
-//            ImagePicker(selectedImage: $image)
+            ImagePicker(selectedImage: $image)
         }
     }
 

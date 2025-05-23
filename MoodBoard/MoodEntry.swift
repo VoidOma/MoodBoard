@@ -14,3 +14,4 @@ struct MoodEntry: Identifiable, Codable {
     var emoji: String
     var imageData: Data
 }
+
