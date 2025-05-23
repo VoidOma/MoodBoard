@@ -17,12 +17,12 @@ struct EntryDetailView: View {
                     .cornerRadius(12)
             }
 
+            Text(entry.emoji)
+                .font(.system(size: 60))
+            
             Text(entry.moodText)
                 .font(.title2)
                 .padding()
-
-            Text(entry.emoji)
-                .font(.system(size: 60))
 
             Spacer()
         }
