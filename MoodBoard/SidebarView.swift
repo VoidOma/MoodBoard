@@ -14,6 +14,22 @@ extension Date {
     }
 }
 
+private func formattedDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "d MMM yyyy"
+    return formatter.string(from: date)
+}
+
+
+private func entryRow(_ entry: MoodEntry) -> some View {
+    NavigationLink {
+        EntryDetailView(entry: entry)
+    } label: {
+        Text("\(entry.emoji) \(formattedDate(entry.date))")
+    }
+}
+
+
 struct SidebarView: View {
     @ObservedObject var vm: MoodViewModel
     @Binding var showSidebar: Bool
@@ -23,11 +39,7 @@ struct SidebarView: View {
         List {
             Section("Aujourd’hui") {
                 ForEach(vm.entries.filter { Calendar.current.isDateInToday($0.date) }) { entry in
-                    NavigationLink {
-                        EntryDetailView(entry: entry)
-                    } label: {
-                        Text("\(entry.emoji) \(formattedDate(entry.date))")
-                    }
+                    entryRow(entry)
                 }
             }
 
@@ -35,44 +47,28 @@ struct SidebarView: View {
                 ForEach(vm.entries.filter {
                     !$0.date.isToday && $0.date.isInLastNDays(7)
                 }) { entry in
-                    NavigationLink {
-                        EntryDetailView(entry: entry)
-                    } label: {
-                        Text("\(entry.emoji) \(formattedDate(entry.date))")
-                    }
+                    entryRow(entry)
                 }
             }
 
-            Section("Mois précédent") {
+            Section("30 derniers jours") {
                 ForEach(vm.entries.filter {
-                    Calendar.current.isDate($0.date, equalTo: Date().addingTimeInterval(-30*24*60*60), toGranularity: .month)
+                    !$0.date.isInLastNDays(7) &&
+                    $0.date >= Calendar.current.date(byAdding: .day, value: -30, to: Date())! &&
+                    !$0.date.isToday
                 }) { entry in
-                    NavigationLink {
-                        EntryDetailView(entry: entry)
-                    } label: {
-                        Text("\(entry.emoji) \(formattedDate(entry.date))")
-                    }
+                    entryRow(entry)
                 }
             }
 
-            Section("Année précédente") {
+            Section("Plus ancien") {
                 ForEach(vm.entries.filter {
-                    $0.date < Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+                    $0.date < Calendar.current.date(byAdding: .day, value: -30, to: Date())!
                 }) { entry in
-                    NavigationLink {
-                        EntryDetailView(entry: entry)
-                    } label: {
-                        Text("\(entry.emoji) \(formattedDate(entry.date))")
-                    }
+                    entryRow(entry)
                 }
             }
         }
         .navigationTitle("Mes Humeurs")
-    }
-
-    private func formattedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM yyyy"
-        return formatter.string(from: date)
     }
 }
