@@ -2,10 +2,6 @@ import SwiftUI
 
 struct EntryDetailView: View {
     let entry: MoodEntry
-    var weatherSummary: String?
-    var weatherIconURL: String?
-
-
     var body: some View {
         VStack(spacing: 20) {
             Text(formattedDate(entry.date))
@@ -22,7 +18,7 @@ struct EntryDetailView: View {
 
             Text(entry.emoji)
                 .font(.system(size: 60))
-            
+
             Text(entry.moodText)
                 .font(.title2)
                 .padding()

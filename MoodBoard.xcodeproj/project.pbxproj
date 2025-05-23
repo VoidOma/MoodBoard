@@ -15,7 +15,6 @@
 		298E14722DD766D7006E9F53 /* MoodBoardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14712DD766D7006E9F53 /* MoodBoardUITests.swift */; };
 		298E14742DD766D7006E9F53 /* MoodBoardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14732DD766D7006E9F53 /* MoodBoardUITestsLaunchTests.swift */; };
 		29CE61852DE07E3C007B0389 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE61802DE07E3A007B0389 /* LocationManager.swift */; };
-		29CE61872DE07E3C007B0389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE61822DE07E3B007B0389 /* ContentView.swift */; };
 		29CE61882DE07E3C007B0389 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE61832DE07E3B007B0389 /* Weather.swift */; };
 		29CE61892DE07E3C007B0389 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE61842DE07E3B007B0389 /* WeatherViewModel.swift */; };
 		29ED4F7D2DD7796800BA862E /* MoodEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ED4F7C2DD7796700BA862E /* MoodEntry.swift */; };
@@ -54,7 +53,6 @@
 		298E14712DD766D7006E9F53 /* MoodBoardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBoardUITests.swift; sourceTree = "<group>"; };
 		298E14732DD766D7006E9F53 /* MoodBoardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBoardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		29CE61802DE07E3A007B0389 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		29CE61822DE07E3B007B0389 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		29CE61832DE07E3B007B0389 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		29CE61842DE07E3B007B0389 /* WeatherViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		29ED4F7C2DD7796700BA862E /* MoodEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEntry.swift; sourceTree = "<group>"; };
@@ -89,6 +87,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2955E5962DE0AAF700908FD2 /* vue */ = {
+			isa = PBXGroup;
+			children = (
+				292433972DE053160088A750 /* EntryDetailView.swift */,
+				29ED4F822DD7797400BA862E /* SidebarView.swift */,
+				29ED4F802DD7797400BA862E /* TodayView.swift */,
+			);
+			path = vue;
+			sourceTree = "<group>";
+		};
+		2955E5972DE0AB0900908FD2 /* controlleur */ = {
+			isa = PBXGroup;
+			children = (
+				29CE61802DE07E3A007B0389 /* LocationManager.swift */,
+				29CE61832DE07E3B007B0389 /* Weather.swift */,
+				29ED4F812DD7797400BA862E /* ImagePicker.swift */,
+				29ED4F7C2DD7796700BA862E /* MoodEntry.swift */,
+			);
+			path = controlleur;
+			sourceTree = "<group>";
+		};
+		2955E5982DE0AB3800908FD2 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				29CE61842DE07E3B007B0389 /* WeatherViewModel.swift */,
+				29ED4F7E2DD7796B00BA862E /* MoodViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
 		298E144A2DD766D5006E9F53 = {
 			isa = PBXGroup;
 			children = (
@@ -112,16 +140,9 @@
 		298E14552DD766D5006E9F53 /* MoodBoard */ = {
 			isa = PBXGroup;
 			children = (
-				29CE61822DE07E3B007B0389 /* ContentView.swift */,
-				29CE61802DE07E3A007B0389 /* LocationManager.swift */,
-				29CE61832DE07E3B007B0389 /* Weather.swift */,
-				29CE61842DE07E3B007B0389 /* WeatherViewModel.swift */,
-				292433972DE053160088A750 /* EntryDetailView.swift */,
-				29ED4F812DD7797400BA862E /* ImagePicker.swift */,
-				29ED4F822DD7797400BA862E /* SidebarView.swift */,
-				29ED4F802DD7797400BA862E /* TodayView.swift */,
-				29ED4F7E2DD7796B00BA862E /* MoodViewModel.swift */,
-				29ED4F7C2DD7796700BA862E /* MoodEntry.swift */,
+				2955E5982DE0AB3800908FD2 /* viewmodel */,
+				2955E5962DE0AAF700908FD2 /* vue */,
+				2955E5972DE0AB0900908FD2 /* controlleur */,
 				298E14562DD766D5006E9F53 /* MoodBoardApp.swift */,
 				298E145A2DD766D6006E9F53 /* Assets.xcassets */,
 				298E145C2DD766D6006E9F53 /* Preview Content */,
@@ -291,7 +312,6 @@
 				292433982DE053160088A750 /* EntryDetailView.swift in Sources */,
 				29CE61882DE07E3C007B0389 /* Weather.swift in Sources */,
 				29CE61852DE07E3C007B0389 /* LocationManager.swift in Sources */,
-				29CE61872DE07E3C007B0389 /* ContentView.swift in Sources */,
 				29ED4F7F2DD7796B00BA862E /* MoodViewModel.swift in Sources */,
 				29ED4F852DD7797400BA862E /* TodayView.swift in Sources */,
 				29ED4F7D2DD7796800BA862E /* MoodEntry.swift in Sources */,
@@ -453,8 +473,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoodBoard/Preview Content\"";
+				DEVELOPMENT_TEAM = QA5D4J953P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = local;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = position;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -482,8 +504,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoodBoard/Preview Content\"";
+				DEVELOPMENT_TEAM = QA5D4J953P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = local;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = position;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

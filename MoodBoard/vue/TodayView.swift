@@ -180,4 +180,3 @@ struct TodayView: View {
         return Calendar.current.isDateInToday(date) ? "Aujourd’hui" : formatter.string(from: date)
     }
 }
-
