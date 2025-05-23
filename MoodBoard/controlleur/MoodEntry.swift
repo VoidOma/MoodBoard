@@ -1,4 +1,11 @@
 //
+//  MoodEntry.swift
+//  AppMeteo
+//
+//  Created by Milan Matejka on 5/23/25.
+//
+
+//
 //  Modele.swift
 //  MoodBoard
 //
@@ -8,10 +15,12 @@
 import Foundation
 
 struct MoodEntry: Identifiable, Codable {
-    let id: UUID
-    let date: Date
+    var id = UUID()
+    var date: Date
+    var imageData: Data
     var moodText: String
     var emoji: String
-    var imageData: Data
+    var weatherSummary: String?
+    var weatherIconURL: String?
+    var weatherCity: String?
 }
-

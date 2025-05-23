@@ -1,3 +1,10 @@
+//
+//  TodayView.swift
+//  AppMeteo
+//
+//  Created by Milan Matejka on 5/23/25.
+//
+import CoreLocation
 import SwiftUI
 
 struct EmojiPicker: View {
@@ -97,7 +104,7 @@ struct TodayView: View {
 
                     if let weather = weatherVM.weather {
                         HStack(spacing: 12) {
-                            AsyncImage(url: URL(string: "https:\\(weather.current.condition.icon)")) { image in
+                            AsyncImage(url: URL(string: "https:\(weather.current.condition.icon)")) { image in
                                 image.resizable().frame(width: 40, height: 40)
                             } placeholder: {
                                 ProgressView()
@@ -118,17 +125,31 @@ struct TodayView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
+                    
+                    
 
-                    Button("Enregistrer") {
+                    Button("Enregistrer l'humeur") {
                         if let image = image {
-                            vm.addEntry(for: selectedDate, image: image, mood: moodText, emoji: emoji)
+                            let weather = weatherVM.weather
+                            vm.addEntry(
+                                for: selectedDate,
+                                image: image,
+                                mood: moodText,
+                                emoji: emoji,
+                                weatherSummary: weather?.current.condition.text,
+                                weatherIconURL: weather?.current.condition.icon,
+                                weatherCity: weather?.location.name
+                            )
 
+                            // Reset
                             moodText = ""
                             emoji = "🙂"
                             self.image = nil
                             selectedDate = Date()
                         }
                     }
+
+
                     .buttonStyle(.borderedProminent)
                     .disabled(image == nil || moodText.isEmpty)
 

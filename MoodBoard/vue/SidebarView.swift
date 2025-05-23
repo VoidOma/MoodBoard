@@ -1,3 +1,10 @@
+//
+//  SidebarView.swift
+//  AppMeteo
+//
+//  Created by Milan Matejka on 5/23/25.
+//
+
 import SwiftUI
 import Foundation
 

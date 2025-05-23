@@ -1,41 +1,57 @@
 //
+//  MoodViewModel.swift
+//  AppMeteo
+//
+//  Created by Milan Matejka on 5/23/25.
+//
+
+//
 //  Modele.swift
 //  MoodBoard
 //
 //  Created by Milan Matejka on 5/16/25.
 //
 
+
+import Foundation
 import SwiftUI
 
 class MoodViewModel: ObservableObject {
     @Published var entries: [MoodEntry] = []
+    private let storageKey = "MoodEntries"
 
     init() {
-        load()
+        loadEntries()
     }
 
-    func addEntry(for date: Date, image: UIImage, mood: String, emoji: String) {
-        guard let data = image.jpegData(compressionQuality: 0.8) else { return }
-        let newEntry = MoodEntry(id: UUID(), date: date, moodText: mood, emoji: emoji, imageData: data)
-
-        // Supprimer une ancienne entrée pour cette date
-        entries.removeAll { Calendar.current.isDate($0.date, inSameDayAs: date) }
-
-        entries.insert(newEntry, at: 0)
-        save()
+    func addEntry(for date: Date, image: UIImage, mood: String, emoji: String, weatherSummary: String?, weatherIconURL: String?, weatherCity: String?) {
+        let imageData = image.jpegData(compressionQuality: 0.8) ?? Data()
+        let entry = MoodEntry(
+            date: date,
+            imageData: imageData,
+            moodText: mood,
+            emoji: emoji,
+            weatherSummary: weatherSummary,
+            weatherIconURL: weatherIconURL,
+            weatherCity: weatherCity
+        )
+        entries.append(entry)
+        saveEntries()
     }
 
-
-    private func save() {
-        if let encoded = try? JSONEncoder().encode(entries) {
-            UserDefaults.standard.set(encoded, forKey: "moodEntries")
+    func saveEntries() {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(entries) {
+            UserDefaults.standard.set(encoded, forKey: storageKey)
         }
     }
 
-    private func load() {
-        if let data = UserDefaults.standard.data(forKey: "moodEntries"),
-           let decoded = try? JSONDecoder().decode([MoodEntry].self, from: data) {
-            self.entries = decoded
+    func loadEntries() {
+        if let data = UserDefaults.standard.data(forKey: storageKey) {
+            let decoder = JSONDecoder()
+            if let decoded = try? decoder.decode([MoodEntry].self, from: data) {
+                entries = decoded
+            }
         }
     }
 }
