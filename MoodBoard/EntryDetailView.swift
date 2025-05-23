@@ -2,6 +2,9 @@ import SwiftUI
 
 struct EntryDetailView: View {
     let entry: MoodEntry
+    var weatherSummary: String?
+    var weatherIconURL: String?
+
 
     var body: some View {
         VStack(spacing: 20) {

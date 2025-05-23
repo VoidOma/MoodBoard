@@ -3,20 +3,13 @@ import SwiftUI
 struct EmojiPicker: View {
     @Binding var selectedEmoji: String
     let emojis = [
-        // Smileys & Emotion
         "😀", "😌", "😢", "😠", "😴", "😎", "🤯", "🥳", "😕", "😍",
-        // Animaux & Nature
         "🐶", "🐱", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐸", "🐵",
-        // Nourriture & Boissons
         "🍎", "🍌", "🍕", "🍔", "🍣", "🍩", "☕️", "🍺", "🥗", "🍰",
-        // Activités & Sports
         "⚽️", "🏀", "🏓", "🏄‍♂️", "🚴‍♀️", "🎸", "🎮", "🎯", "🎲", "🎬",
-        // Objets
         "📱", "💻", "⌚️", "🔑", "📚", "🕯️", "💡", "🔨", "✈️", "🚗",
-        // Symboles
         "❤️", "💔", "✨", "🔥", "⚡️", "🎉", "❄️", "🌈", "☀️", "🌙"
     ]
-
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -37,7 +30,6 @@ struct EmojiPicker: View {
     }
 }
 
-
 struct TodayView: View {
     @ObservedObject var vm: MoodViewModel
     @State private var image: UIImage? = nil
@@ -48,6 +40,8 @@ struct TodayView: View {
     @State private var selectedDate = Date()
     @State private var showDatePicker = false
     @State private var selectedEntry: MoodEntry?
+    @StateObject private var locationManager = LocationManager()
+    @StateObject private var weatherVM = WeatherViewModel()
 
     var body: some View {
         NavigationView {
@@ -101,11 +95,34 @@ struct TodayView: View {
 
                     EmojiPicker(selectedEmoji: $emoji)
 
+                    if let weather = weatherVM.weather {
+                        HStack(spacing: 12) {
+                            AsyncImage(url: URL(string: "https:\\(weather.current.condition.icon)")) { image in
+                                image.resizable().frame(width: 40, height: 40)
+                            } placeholder: {
+                                ProgressView()
+                            }
+
+                            VStack(alignment: .leading) {
+                                Text(weather.location.name)
+                                    .font(.caption)
+                                    .bold()
+                                Text("\(weather.current.temp_c, specifier: "%.1f")°C - \(weather.current.condition.text)")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        Text("📍 Chargement de la météo...")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+
                     Button("Enregistrer") {
                         if let image = image {
                             vm.addEntry(for: selectedDate, image: image, mood: moodText, emoji: emoji)
 
-                            // Reset après enregistrement
                             moodText = ""
                             emoji = "🙂"
                             self.image = nil
@@ -124,6 +141,11 @@ struct TodayView: View {
                         Button(action: { showSidebar.toggle() }) {
                             Image(systemName: "line.3.horizontal")
                         }
+                    }
+                }
+                .onChange(of: locationManager.location) { newLocation in
+                    if let loc = newLocation {
+                        weatherVM.fetchWeather(lat: loc.coordinate.latitude, lon: loc.coordinate.longitude)
                     }
                 }
 
@@ -158,3 +180,4 @@ struct TodayView: View {
         return Calendar.current.isDateInToday(date) ? "Aujourd’hui" : formatter.string(from: date)
     }
 }
+
