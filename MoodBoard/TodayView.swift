@@ -26,90 +26,115 @@ struct EmojiPicker: View {
 
 struct TodayView: View {
     @ObservedObject var vm: MoodViewModel
-    @State private var image: UIImage?
+    @State private var image: UIImage? = nil
     @State private var showImagePicker = false
     @State private var moodText = ""
     @State private var emoji = "🙂"
     @State private var showSidebar = false
-    @State private var selectedEntry: MoodEntry? = nil
+    @State private var selectedDate = Date()
+    @State private var showDatePicker = false
+    @State private var selectedEntry: MoodEntry?
 
     var body: some View {
         NavigationView {
             ZStack {
-                if let entry = selectedEntry {
-                    EntryDetailView(entry: entry)
-                } else {
-                    VStack(spacing: 20) {
-                        Text(dateLabel(for: Date()))
+                VStack(spacing: 20) {
+                    HStack {
+                        Text(dateLabel(for: selectedDate))
                             .font(.largeTitle)
                             .bold()
 
-                        Button(action: { showImagePicker = true }) {
-                            if let img = image {
-                                Image(uiImage: img)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxHeight: 300)
-                                    .cornerRadius(12)
-                            } else {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                                        .frame(height: 200)
-                                    Text("Ajouter une image")
-                                }
+                        Button(action: {
+                            withAnimation {
+                                showDatePicker.toggle()
                             }
+                        }) {
+                            Image(systemName: "chevron.down")
+                                .rotationEffect(.degrees(showDatePicker ? 180 : 0))
+                                .padding(.leading, 5)
                         }
-
-                        TextField("Décris ta journée...", text: $moodText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
-
-                        Text("Ton humeur du jour")
-                            .font(.headline)
-
-                        EmojiPicker(selectedEmoji: $emoji)
-
-                        Button("Enregistrer") {
-                            if let image = image {
-                                vm.addEntry(image: image, mood: moodText, emoji: emoji)
-                                self.image = nil
-                                self.moodText = ""
-                                self.emoji = "🙂"
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(image == nil || moodText.isEmpty)
-
-                        Spacer()
                     }
-                    .padding()
+
+                    if showDatePicker {
+                        DatePicker("Choisir une date", selection: $selectedDate, displayedComponents: [.date])
+                            .datePickerStyle(.graphical)
+                            .transition(.opacity)
+                    }
+
+                    Button(action: { showImagePicker = true }) {
+                        if let img = image {
+                            Image(uiImage: img)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 300)
+                                .cornerRadius(12)
+                        } else {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                                    .frame(height: 200)
+                                Text("Ajouter une image")
+                            }
+                        }
+                    }
+
+                    TextField("Décris ta journée...", text: $moodText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+
+                    Text("Ton humeur du jour")
+                        .font(.headline)
+
+                    EmojiPicker(selectedEmoji: $emoji)
+
+                    Button("Enregistrer") {
+                        if let image = image {
+                            vm.addEntry(for: selectedDate, image: image, mood: moodText, emoji: emoji)
+
+                            // Reset après enregistrement
+                            moodText = ""
+                            emoji = "🙂"
+                            self.image = nil
+                            selectedDate = Date()
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(image == nil || moodText.isEmpty)
+
+                    Spacer()
+                }
+                .padding()
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: { showSidebar.toggle() }) {
+                            Image(systemName: "line.3.horizontal")
+                        }
+                    }
                 }
 
                 if showSidebar {
                     SidebarView(vm: vm, showSidebar: $showSidebar, selectedEntry: $selectedEntry)
                         .transition(.move(edge: .leading))
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showSidebar.toggle() }) {
-                        Image(systemName: "line.3.horizontal")
-                    }
+                        .onChange(of: showSidebar) { isShown in
+                            if !isShown {
+                                selectedEntry = nil
+                            }
+                        }
                 }
 
-                if selectedEntry != nil {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Fermer") {
-                            selectedEntry = nil
-                        }
-                    }
+                if let entry = selectedEntry {
+                    EntryDetailView(entry: entry)
+                        .background(Color.white)
+                        .transition(.move(edge: .trailing))
                 }
             }
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(selectedImage: $image)
+        }
+        .onChange(of: selectedDate) { _ in
+            showDatePicker = false
         }
     }
 
