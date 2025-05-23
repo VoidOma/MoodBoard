@@ -1,10 +1,3 @@
-//
-//  Modele.swift
-//  MoodBoard
-//
-//  Created by Milan Matejka on 5/16/25.
-//
-
 import SwiftUI
 
 struct EmojiPicker: View {
@@ -30,6 +23,7 @@ struct EmojiPicker: View {
     }
 }
 
+
 struct TodayView: View {
     @ObservedObject var vm: MoodViewModel
     @State private var image: UIImage?
@@ -37,65 +31,80 @@ struct TodayView: View {
     @State private var moodText = ""
     @State private var emoji = "🙂"
     @State private var showSidebar = false
+    @State private var selectedEntry: MoodEntry? = nil
 
     var body: some View {
         NavigationView {
             ZStack {
-                VStack(spacing: 20) {
-                    Text(dateLabel(for: Date()))
-                        .font(.largeTitle)
-                        .bold()
+                if let entry = selectedEntry {
+                    EntryDetailView(entry: entry)
+                } else {
+                    VStack(spacing: 20) {
+                        Text(dateLabel(for: Date()))
+                            .font(.largeTitle)
+                            .bold()
 
-                    Button(action: { showImagePicker = true }) {
-                        if let img = image {
-                            Image(uiImage: img)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxHeight: 300)
-                                .cornerRadius(12)
-                        } else {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                                    .frame(height: 200)
-                                Text("Ajouter une image")
+                        Button(action: { showImagePicker = true }) {
+                            if let img = image {
+                                Image(uiImage: img)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxHeight: 300)
+                                    .cornerRadius(12)
+                            } else {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                                        .frame(height: 200)
+                                    Text("Ajouter une image")
+                                }
                             }
                         }
-                    }
 
-                    TextField("Décris ta journée...", text: $moodText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
+                        TextField("Décris ta journée...", text: $moodText)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.horizontal)
 
-                    Text("Ton humeur du jour")
-                        .font(.headline)
+                        Text("Ton humeur du jour")
+                            .font(.headline)
 
-                    EmojiPicker(selectedEmoji: $emoji)
+                        EmojiPicker(selectedEmoji: $emoji)
 
-
-                    Button("Enregistrer") {
-                        if let image = image {
-                            vm.addEntry(image: image, mood: moodText, emoji: emoji)
+                        Button("Enregistrer") {
+                            if let image = image {
+                                vm.addEntry(image: image, mood: moodText, emoji: emoji)
+                                self.image = nil
+                                self.moodText = ""
+                                self.emoji = "🙂"
+                            }
                         }
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(image == nil || moodText.isEmpty)
+                        .buttonStyle(.borderedProminent)
+                        .disabled(image == nil || moodText.isEmpty)
 
-                    Spacer()
-                }
-                .padding()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: { showSidebar.toggle() }) {
-                            Image(systemName: "line.3.horizontal")
-                        }
+                        Spacer()
                     }
+                    .padding()
                 }
 
                 if showSidebar {
-                    SidebarView(vm: vm, showSidebar: $showSidebar)
+                    SidebarView(vm: vm, showSidebar: $showSidebar, selectedEntry: $selectedEntry)
                         .transition(.move(edge: .leading))
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showSidebar.toggle() }) {
+                        Image(systemName: "line.3.horizontal")
+                    }
+                }
+
+                if selectedEntry != nil {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Fermer") {
+                            selectedEntry = nil
+                        }
+                    }
                 }
             }
         }

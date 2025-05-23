@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		292433982DE053160088A750 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292433972DE053160088A750 /* EntryDetailView.swift */; };
 		298E14572DD766D5006E9F53 /* MoodBoardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E14562DD766D5006E9F53 /* MoodBoardApp.swift */; };
 		298E145B2DD766D6006E9F53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298E145A2DD766D6006E9F53 /* Assets.xcassets */; };
 		298E145E2DD766D6006E9F53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298E145D2DD766D6006E9F53 /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		292433972DE053160088A750 /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		298E14532DD766D5006E9F53 /* MoodBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298E14562DD766D5006E9F53 /* MoodBoardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodBoardApp.swift; sourceTree = "<group>"; };
 		298E145A2DD766D6006E9F53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		298E14552DD766D5006E9F53 /* MoodBoard */ = {
 			isa = PBXGroup;
 			children = (
+				292433972DE053160088A750 /* EntryDetailView.swift */,
 				29ED4F812DD7797400BA862E /* ImagePicker.swift */,
 				29ED4F822DD7797400BA862E /* SidebarView.swift */,
 				29ED4F802DD7797400BA862E /* TodayView.swift */,
@@ -272,6 +275,7 @@
 				298E14572DD766D5006E9F53 /* MoodBoardApp.swift in Sources */,
 				29ED4F832DD7797400BA862E /* ImagePicker.swift in Sources */,
 				29ED4F842DD7797400BA862E /* SidebarView.swift in Sources */,
+				292433982DE053160088A750 /* EntryDetailView.swift in Sources */,
 				29ED4F7F2DD7796B00BA862E /* MoodViewModel.swift in Sources */,
 				29ED4F852DD7797400BA862E /* TodayView.swift in Sources */,
 				29ED4F7D2DD7796800BA862E /* MoodEntry.swift in Sources */,
